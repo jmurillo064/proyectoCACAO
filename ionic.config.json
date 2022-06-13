@@ -1,0 +1,7 @@
+{
+  "name": "proyectoCacao",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
