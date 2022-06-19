@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "proyectoCacao",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

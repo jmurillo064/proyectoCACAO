@@ -1,0 +1,21 @@
+.imagen{
+    height: 250px;
+    width: 250px;
+    border-radius: 200px;
+    padding: 10px;
+}
+
+ion-card{
+    width: auto;
+    height: auto;
+    position: relative;
+    text-align: center;
+    align-items: center;
+    box-shadow: 0 0 10px #DF8614;
+
+    ion-card-title{
+        font-weight: 300 bold;
+        color: #DF8614;
+    }
+}
+

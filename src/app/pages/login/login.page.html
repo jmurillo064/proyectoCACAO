@@ -1,0 +1,85 @@
+<ion-app>
+
+  <ion-content padding center text-center>
+    <div id="div-inicial">
+      <div id="home" center>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col>
+              <div id="image">
+                <img class="logo" src=".\assets\icon\Logo cacao.png" alt="logo">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div>
+                <p>
+                  Somos una hacienda productiva con más de 10 años en el mercado, apoyando el crecimiento y la sostenibilidad ecuatoriana.
+                </p>
+              </div>
+            </ion-col>
+          </ion-row>
+          <div id="inicio">
+            <ion-row>
+              <ion-col>
+                <div>
+                  <p>
+                    <span>INICIAR </span>
+                    <span>SESIÓN</span>
+                  </p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div>
+                  <ion-input [(ngModel)]="cedula" type="text" placeholder="Ingrese cédula" required ></ion-input>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div>
+                  <ion-input [(ngModel)]="pass" type="password" placeholder="Ingrese Password" required></ion-input> 
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div>
+                  <ion-button (click)="iniciarSesion()" color="none">Ingresar</ion-button>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-grid>
+      </div>
+    </div> 
+  </ion-content>
+</ion-app>
+
+
+    <!-- <div class="div-inicial">
+      <div class="home-section-wrap">
+        <ion-col size="12">
+          <div class="home-image-section">
+            <img class="logo" src=".\assets\icon\Logo cacao.png" alt="logo">
+            <p>
+              <span>INICIAR </span>
+              <span>SESIÓN</span>
+            </p>
+            <p>
+              Find and meet people around<br>you to find love
+            </p>
+          </div>
+          <h2>Ingresa con tus credenciales</h2>
+          <ion-input [(ngModel)]="cedula" type="text" class="text-input" placeholder="Ingrese cédula" required ></ion-input>
+          <ion-input [(ngModel)]="pass" type="password" class="text-input" placeholder="Password" required ></ion-input> 
+          <div class="login-buttons">
+            <div class="save-btn" (click)="iniciarSesion()">Ingresar</div>
+          </div>
+        </ion-col>
+      </div>
+    </div> --> -->
+

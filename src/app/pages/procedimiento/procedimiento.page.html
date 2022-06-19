@@ -1,0 +1,29 @@
+<ion-app >
+  <ion-content color="blanco">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Procedimiento</ion-title>
+        <ion-button (click)="salir()" slot="end"><ion-icon style="height: 30px; width: 30px;" name="exit-outline"></ion-icon></ion-button>
+      </ion-toolbar>
+    </ion-header>
+    <div >
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <img *ngIf="imgURL" [src]="imgURL" alt="imgURL">
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="tomarFoto()">Tomar foto</ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="subirFoto()">Elegir foto</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-content>
+</ion-app>
