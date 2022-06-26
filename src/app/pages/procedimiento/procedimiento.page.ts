@@ -11,7 +11,8 @@ import { AlertController } from '@ionic/angular';
 })
 export class ProcedimientoPage implements OnInit {
 
-  imgURL: string;
+  imgURL: any;
+  base;
 
   constructor(private camera: Camera, private router: Router, public alertController: AlertController) { }
 
@@ -60,21 +61,36 @@ export class ProcedimientoPage implements OnInit {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType : this.camera.PictureSourceType.CAMERA,
-      targetWidth: 100,
-      targetHeight: 100,
-      saveToPhotoAlbum: false
+      saveToPhotoAlbum: true,
+
     }
     
     this.camera.getPicture(options)
     .then((imageData) => {
+      this.base = imageData;
       this.imgURL='data:image/jpeg;base64,' + imageData;
     }, (err) => {
       console.log(err);
     });
   }
 
+  async presentAlert(err) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alerta',
+      subHeader: 'Campos inválidos!!!',
+      message: err,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
   subirFoto(){
-    const options: CameraOptions = {
+    const options2: CameraOptions = {
       quality : 100,
       destinationType : this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
@@ -82,11 +98,11 @@ export class ProcedimientoPage implements OnInit {
       sourceType : this.camera.PictureSourceType.PHOTOLIBRARY,
     }
     
-    this.camera.getPicture(options)
+    this.camera.getPicture(options2)
     .then((imageData) => {
       this.imgURL='data:image/jpeg;base64,' + imageData;
     }, (err) => {
-      console.log(err);
+      this.presentAlert(err);
     });
   }
 

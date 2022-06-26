@@ -11,16 +11,39 @@
         <ion-row>
           <ion-col>
             <img *ngIf="imgURL" [src]="imgURL" alt="imgURL">
+            <p> {{base}} </p>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button (click)="tomarFoto()">Tomar foto</ion-button>
+            <div class="divG">
+              <div class="divImg" >
+                <ion-button button class="boton" (click)="tomarFoto()">
+                  <ion-row>
+                    <ion-title> Tomar foto</ion-title>
+                    <ion-col>
+                      <img src=".\assets\icon\camara.png" alt="">
+                    </ion-col>
+                  </ion-row>
+                </ion-button>
+              </div>
+            </div>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button (click)="subirFoto()">Elegir foto</ion-button>
+            <div class="divG">
+              <div class="divImg">
+                <ion-button class="boton" (click)="subirFoto()">
+                  <ion-row>
+                    <ion-title> Elegir foto</ion-title>
+                    <ion-col>
+                      <img class="imgColor" src=".\assets\icon\subir.png" alt="" >
+                    </ion-col>
+                  </ion-row>
+                </ion-button>
+              </div>
+            </div>
           </ion-col>
         </ion-row>
       </ion-grid>

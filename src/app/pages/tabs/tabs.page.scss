@@ -5,9 +5,12 @@ ion-tab-bar {
     width: 92%;
     margin: 0 auto;
     background-color: #f5f5f3;
+    box-shadow: 0 0 10px #DF8614;
 }
 
-
+#tabs{
+    background-color: #DF8614;
+}
 
 ion-tab-button {
     background: none;

@@ -5,17 +5,67 @@
     padding: 10px;
 }
 
-ion-card{
-    width: auto;
-    height: auto;
-    position: relative;
+// ion-card{
+//     width: auto;
+//     height: auto;
+//     position: relative;
+//     text-align: center;
+//     align-items: center;
+//     box-shadow: 0 0 10px #DF8614;
+//     padding-left: 0px;
+    
+//     ion-card-title{
+//         font-weight: 700 bold;
+//         color: #DF8614;
+//         writing-mode: vertical-rl;
+//         transform: rotate(180deg);
+//         width: auto;
+//         height: auto;
+//     }
+//     img{
+//     }
+//     ion-card-content{
+//         text-align: center;
+//         align-items: center;
+//     }
+// }
+
+#divC{
+    justify-content: center; 
+    display: flex; 
+    align-items: center; 
+    text-align: center; 
+    height: 100%;
+    width: 100%;
+}
+
+label{
+    font-weight: 700 bold;
+    font-size: 25px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+p{
     text-align: center;
     align-items: center;
-    box-shadow: 0 0 10px #DF8614;
-
-    ion-card-title{
-        font-weight: 300 bold;
-        color: #DF8614;
-    }
 }
+
+.claseW{
+    color: #DF8614; 
+    background-color: white;
+    border: solid #DF8614;
+}
+
+.claseN{
+    background-color: #DF8614; 
+    color: white;
+    border: solid #ffffff;
+}
+
+// .item2{
+//     writing-mode: vertical-rl;
+//     transform: rotate(180deg);
+// }
+
 
