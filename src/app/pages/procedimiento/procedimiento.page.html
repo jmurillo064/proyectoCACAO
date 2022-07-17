@@ -11,7 +11,7 @@
         <ion-row>
           <ion-col>
             <img *ngIf="imgURL" [src]="imgURL" alt="imgURL">
-            <p> {{base}} </p>
+            <ion-button *ngIf="imgURL" (click)="procesarImg()">Predecir</ion-button>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -19,6 +19,7 @@
             <div class="divG">
               <div class="divImg" >
                 <ion-button button class="boton" (click)="tomarFoto()">
+                  <input type='file' id="Imagen_U" name="Imagen_U" [(ngModel)]="Imagen_U"  (change)="onSelectFile($event)">
                   <ion-row>
                     <ion-title> Tomar foto</ion-title>
                     <ion-col>

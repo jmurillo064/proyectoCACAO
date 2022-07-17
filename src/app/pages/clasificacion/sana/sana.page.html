@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>sana</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="padre">
+    <div id="hijo">
+      <ion-item>
+        <ion-label>Parcela</ion-label>
+        <ion-select >
+          <ion-select-option *ngFor="let parcela of parcelas" value="{{ parcela.id_parcela }}">
+            {{ parcela.nombre_parcela }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+  </div>
+</ion-content>
