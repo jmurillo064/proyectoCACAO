@@ -32,6 +32,7 @@ export class InicioPage implements OnInit {
           text: 'Salir',
           id: 'confirm-button',
           handler: () => {
+            localStorage.removeItem('ingresado');
             this.router.navigate(['login']);
           }
         }

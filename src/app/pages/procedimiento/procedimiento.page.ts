@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { PredecirService } from 'src/app/services/predecir.service';
 import { ToastController } from '@ionic/angular';
 import Swal from 'sweetalert2';
+import { ImageService } from '../../services/image.service';
 //import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
@@ -19,9 +20,19 @@ export class ProcedimientoPage implements OnInit {
   nombre: any;
   Imagen_U;
 
-  constructor(public toastController: ToastController, private camera: Camera, private router: Router, public alertController: AlertController, private predecirService:PredecirService) { }
+  constructor(
+    public toastController: ToastController, 
+    private camera: Camera, 
+    private router: Router, 
+    public alertController: AlertController, 
+    private predecirService:PredecirService,
+    private loadingCtrl: LoadingController,
+    private imageService: ImageService
+    ) { }
 
   ngOnInit() {
+    this.imgURL = "";
+    this.nombre = "";
   }
 
   public onSelectFile(event) { // called each time file input changes
@@ -52,32 +63,46 @@ export class ProcedimientoPage implements OnInit {
     }
   }
 
-  GuardarImagen(){
-    
-        let dataI={
-          "nombre_imagen":this.Imagen_U,
-        }
-        this.predecirService.Post_Imagen(dataI).then(dataIR =>{
-
-        }).catch(error =>{
-          console.log(error);
-        });
-      }
-
-  procesarImg(){
-    var dataToSend = {base64img:this.nombre,}
+  async procesarImg(){
+    let dataToSend = {base64img:this.nombre}
+    //console.log(this.nombre);
+    const loading = await this.loadingCtrl.create({
+      message: 'Procesando imagen...',
+    });
+    await loading.present();
 
     this.predecirService.predecirMonillia(dataToSend).then(data => {
-      this.mensaje(data['Descripción']);
+      
+      loading.dismiss();
+      let color;
+      //enviar imagen y estado
+      let resultado = {
+        estado: data['Descripción'],
+        imgB64: this.imgURL
+      }
+      this.imageService.senObjectSource(resultado);
+
+      if(data['Descripción']==='SANA'){
+        color='success';
+        this.router.navigate(['sana']);
+      }else{
+        color='danger';
+        this.router.navigate(['enferma']);
+      }
+      this.mensaje('El estado de la imagen es: '+data['Descripción'], color);
     }).catch(error =>{
-      this.mensaje("Hubo muchos errores");
+      loading.dismiss();
+      this.mensaje("Hubo muchos errores",'warning');
+      this.presentAlert(error.message);
     });
   }
 
-  async mensaje(msj: string) {
+  async mensaje(msj: string, colors: string) {
     const toast = await this.toastController.create({
       message: msj,
-      duration: 2000
+      duration: 2000,
+      color: colors,
+      position: 'middle'
     });
     toast.present();
   }
@@ -113,48 +138,16 @@ export class ProcedimientoPage implements OnInit {
     this.presentAlertConfirm();
   }
 
-  // async tomarFoto(){
-  //     const image = await Camera.getPhoto({
-  //       quality: 100,
-  //       allowEditing: true,
-  //       resultType: CameraResultType.Uri,
-  //       source: CameraSource.Camera
-  //     });
-    
-  //     image.webPath will contain a path that can be set as an image src.
-  //     You can access the original file using image.path, which can be
-  //     passed to the Filesystem API to read the raw data of the image,
-  //     if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
-  //     this.imgURL = image.webPath;
-  //   };
-  
-
-    // async subirFoto(){
-    // const image = await Camera.getPhoto({
-    //   quality: 100,
-    //   allowEditing: false,
-    //   resultType: CameraResultType.DataUrl,
-    //   source: CameraSource.Photos
-    //   });
-    
-      
-    //   this.imgURL =  image.dataUrl;
-    // };
-  
-
   tomarFoto(){
     const options: CameraOptions = {
-      // quality: 100,
-      // destinationType: this.camera.DestinationType.FILE_URI,
-      // encodingType: this.camera.EncodingType.JPEG,
-      // mediaType: this.camera.MediaType.PICTURE
       quality : 100,
       destinationType : this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType : this.camera.PictureSourceType.CAMERA,
       saveToPhotoAlbum: true,
-
+      targetHeight: 250,
+      targetWidth: 250
     }
     
     this.camera.getPicture(options)
@@ -162,9 +155,9 @@ export class ProcedimientoPage implements OnInit {
       this.nombre = imageData;
       this.Imagen_U=this.nombre;
       this.imgURL='data:image/jpeg;base64,' + imageData;
-      this.onSelectFile(event);
+      this.procesarImg();
     }, (err) => {
-      console.log(err);
+      this.presentAlert(err.data);
     });
   }
 
@@ -190,14 +183,16 @@ export class ProcedimientoPage implements OnInit {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType : this.camera.PictureSourceType.PHOTOLIBRARY,
+      targetHeight: 250,
+      targetWidth: 250
     }
-    
     this.camera.getPicture(options2)
     .then((imageData) => {
       this.nombre = imageData;
       this.imgURL='data:image/jpeg;base64,' + imageData;
+      this.procesarImg();
     }, (err) => {
-      this.presentAlert(err);
+      this.presentAlert(err.data);
     });
   }
 

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ImageService } from 'src/app/services/image.service';
+import { SanaService } from 'src/app/services/sana.service';
+import { EnfermaService } from 'src/app/services/enferma.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-enferma',
@@ -7,9 +11,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EnfermaPage implements OnInit {
 
-  constructor() { }
+  parcelas: any;
+  imgURL: any;
+  estado: any;
+
+  constructor(
+    private sanaService: SanaService,
+    private imageService: ImageService,
+    private enfermaService: EnfermaService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
+    //parcelas
+    this.sanaService.obtenerParcelas().then(data => {
+      if(data['code'] == "204"){
+        console.log("Sin datos");
+      }else{
+        this.parcelas = data['data'];
+      }
+    }).catch(error =>{
+      console.log(error);
+    });
+
+    //imagen
+    this.imageService.$getObjectSource.subscribe(data =>{
+      this.imgURL = data['imgB64'];
+      this.estado = data['estado']
+    }).unsubscribe();
+
+    //tratamientos
+    
+  }
+
+  //guardar
+  guardar(){
+    this.router.navigate(['tabs']);
   }
 
 }

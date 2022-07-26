@@ -40,7 +40,10 @@ export class LoginPage implements OnInit {
       this.loginService.validarLogin(this.cedula, this.pass).then(data =>{
         if(data['code'] == "204"){
           this.presentAlert();
+          this.cedula="";
+          this.pass="";
         }else{
+          localStorage.setItem('ingresado','true');
           this.router.navigate(['tabs']);
           this.cedula="";
           this.pass="";

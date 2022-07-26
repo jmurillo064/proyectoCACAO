@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ImageService } from 'src/app/services/image.service';
 import { SanaService } from 'src/app/services/sana.service';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sana',
@@ -9,22 +12,38 @@ import { SanaService } from 'src/app/services/sana.service';
 export class SanaPage implements OnInit {
 
   parcelas: any;
+  imgURL: any;
+  estado: any;
 
-  constructor(private sanaService: SanaService) { }
+
+  constructor(
+    private sanaService: SanaService,
+    private imageService: ImageService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
+    //parcelas
     this.sanaService.obtenerParcelas().then(data => {
       if(data['code'] == "204"){
         console.log("Sin datos");
       }else{
-        // data['data'].forEach(element => {
-        //   this.parcelas.push(element['nombre_parcela']);
-        // });
         this.parcelas = data['data'];
       }
     }).catch(error =>{
-        console.log(error);
-      });
+      console.log(error);
+    });
+
+    //imagen
+    this.imageService.$getObjectSource.subscribe(data =>{
+      this.imgURL = data['imgB64'];
+      this.estado = data['estado']
+    }).unsubscribe();
+  }
+
+  //guardar
+  guardar(){
+    this.router.navigate(['tabs']);
   }
 
 }

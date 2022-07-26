@@ -5,5 +5,28 @@
 </ion-header>
 
 <ion-content>
-
+  <div id="divImg">
+    <ion-img *ngIf="imgURL" [src]="imgURL" alt="imgURL"></ion-img>
+  </div>
+  <div id="resultado">
+    <ion-item>
+      <ion-note slot="start">ESTADO</ion-note><br>
+      <ion-label>{{estado}}</ion-label>
+    </ion-item>
+  </div>
+  <div id="padre">
+    <div id="hijo">
+      <ion-item>
+        <ion-note slot="start">PARCELA</ion-note><br>
+        <ion-select >
+          <ion-select-option *ngFor="let parcela of parcelas" value="{{ parcela.id_parcela }}">
+            {{ parcela.nombre_parcela }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+  </div>
+  <div id="boton">
+    <ion-button (click)="guardar()">GUARDAR</ion-button>
+  </div>
 </ion-content>
