@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>enferma</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Predicción: Enferma</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -25,6 +25,27 @@
         </ion-select>
       </ion-item>
     </div>
+  </div>
+  <!-- <div>
+    <ion-list>
+      <ion-item *ngFor="let entry of tratamientos">
+        <ion-label>{{entry.tipo_tratamiento}}</ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </div> -->
+  <div>
+    <ion-list>
+      <ion-radio-group [(ngModel)]="radioValue" (ionChange)="checkValue($event)">
+        <ion-list-header>
+          <ion-label>Tratamientos</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let user of tratamientos" >
+          <ion-label>{{ user.tipo_tratamiento }}</ion-label>
+          <ion-radio  value="{{ user.tipo_tratamiento }}"></ion-radio>
+      </ion-item>
+      </ion-radio-group>
+    </ion-list>  
   </div>
   <div id="boton">
     <ion-button (click)="guardar()">GUARDAR</ion-button>
