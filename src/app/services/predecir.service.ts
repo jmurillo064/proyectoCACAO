@@ -36,4 +36,22 @@ export class PredecirService {
       });
     });
   }
+
+  guardarTratamientosP(data: any){
+    let  url = 'https://shrouded-gorge-69430.herokuapp.com/api/AnalisisTratamiento';
+    var formData = new FormData(); 
+    formData.append('id_usuario',data.id_usuario);
+    formData.append('id_parcela',data.id_parcela);
+    formData.append('id_tratamiento',data.id_tratamiento);
+    formData.append('fase2',data.fase2);
+    formData.append('prescripcion_tratamiento',data.prescripcion_tratamiento);
+    formData.append('observacion_tratamiento',data.observacion_tratamiento);
+    return new Promise((resolve, reject) => {
+      this.http.post(url,formData).subscribe(res => { 
+      resolve(res);
+        }, error => { 
+          reject(error);
+        });
+    })
+  }
 }

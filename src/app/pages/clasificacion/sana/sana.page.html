@@ -17,8 +17,8 @@
   <div id="padre">
     <div id="hijo">
       <ion-item>
-        <ion-note slot="start">PARCELA</ion-note>
-        <ion-select >
+        <ion-note slot="start">PARCELA: <ion-text color="danger">*</ion-text></ion-note>
+        <ion-select value="{{verSeleccion}}" [(ngModel)]="verSeleccion">
           <ion-select-option *ngFor="let parcela of parcelas" value="{{ parcela.id_parcela }}">
             {{ parcela.nombre_parcela }}
           </ion-select-option>

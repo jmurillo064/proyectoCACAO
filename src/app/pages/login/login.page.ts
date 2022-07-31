@@ -43,15 +43,44 @@ export class LoginPage implements OnInit {
           this.cedula="";
           this.pass="";
         }else{
-          localStorage.setItem('ingresado','true');
-          this.router.navigate(['tabs']);
+          //.setItem('ingresado','true');
+          
+          
           this.cedula="";
           this.pass="";
+          //var user = JSON.parse(data['data']);
+          if(data['data']['estado_usuario']=='1'){
+            if(data['data']['id_tipo_usuario']=='2'){
+              console.log(data);
+              localStorage.setItem('ingresado', JSON.stringify(data));
+              this.router.navigate(['tabs']);
+            }else{
+              this.presentAlert2("Acceso denegado","Solo personal autorizado.");
+            }
+          }else{
+            this.presentAlert2("Acceso denegado","Este usuario se encuentra deshabilitado.");
+          }
+
         }
       }).catch(error =>{
         console.log(error);
       });
     }
+  }
+
+  async presentAlert2(til, msg) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alerta',
+      subHeader: til,
+      message: msg,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 
 }

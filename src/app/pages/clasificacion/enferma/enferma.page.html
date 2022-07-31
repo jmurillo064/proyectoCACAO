@@ -10,35 +10,27 @@
   </div>
   <div id="resultado">
     <ion-item>
-      <ion-note slot="start">ESTADO</ion-note><br>
+      <ion-note slot="start">ESTADO: <ion-text color="danger">*</ion-text></ion-note><br>
       <ion-label>{{estado}}</ion-label>
     </ion-item>
   </div>
   <div id="padre">
     <div id="hijo">
       <ion-item>
-        <ion-note slot="start">PARCELA</ion-note><br>
-        <ion-select >
-          <ion-select-option *ngFor="let parcela of parcelas" value="{{ parcela.id_parcela }}">
+        <ion-note slot="start">PARCELA: <ion-text color="danger">*</ion-text></ion-note><br>
+        <ion-select value="{{verSeleccion}}" [(ngModel)]="verSeleccion">
+          <ion-select-option *ngFor="let parcela of parcelas" value="{{parcela.id_parcela}}">
             {{ parcela.nombre_parcela }}
           </ion-select-option>
         </ion-select>
       </ion-item>
     </div>
   </div>
-  <!-- <div>
-    <ion-list>
-      <ion-item *ngFor="let entry of tratamientos">
-        <ion-label>{{entry.tipo_tratamiento}}</ion-label>
-        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
-      </ion-item>
-    </ion-list>
-  </div> -->
-  <div>
+  <div style="padding-left: 30px; padding-right: 30px; padding-top: 10px;">
     <ion-list>
       <ion-radio-group [(ngModel)]="radioValue" (ionChange)="checkValue($event)">
         <ion-list-header>
-          <ion-label>Tratamientos</ion-label>
+          <ion-label>Tratamientos: <ion-text color="danger">*</ion-text></ion-label>
         </ion-list-header>
         <ion-item *ngFor="let user of tratamientos" >
           <ion-label>{{ user.tipo_tratamiento }}</ion-label>
@@ -46,6 +38,18 @@
       </ion-item>
       </ion-radio-group>
     </ion-list>  
+  </div>
+  <div style="padding-left: 30px; padding-right: 30px; padding-top: 10px;">
+    <ion-note>Prescripción:</ion-note>
+    <ion-item>
+      <ion-textarea placeholder="Ingrese alguna prescripción del tratamiento..." [(ngModel)]="prescripcionBd"></ion-textarea>
+    </ion-item>
+  </div>
+  <div style="padding-left: 30px; padding-right: 30px; padding-top: 10px;">
+    <ion-note>Observación:</ion-note>
+    <ion-item>
+      <ion-textarea placeholder="Ingrese observaciones..." [(ngModel)]="observacionBd"></ion-textarea>
+    </ion-item>
   </div>
   <div id="boton">
     <ion-button (click)="guardar()">GUARDAR</ion-button>
