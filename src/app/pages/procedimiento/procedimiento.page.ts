@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
-
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { PredecirService } from 'src/app/services/predecir.service';

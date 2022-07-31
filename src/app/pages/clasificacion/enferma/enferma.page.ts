@@ -111,7 +111,7 @@ print(event) {
   //guardar
   guardar(){
     if(this.tratamientoBd==undefined || this.verSeleccion==undefined || this.verSeleccion==""){
-      this.presentToast("Datos incompletos!!!","danger");
+      this.presentToast("Datos incompletos.","danger");
     }else{
       var user = JSON.parse(localStorage.getItem('ingresado'));
       //let user = localStorage.getItem('ingresado');
@@ -126,7 +126,7 @@ print(event) {
       console.log(array);
       this.predecirService.guardarTratamientosP(array).then(data =>{
         if(data['code']==200){
-          this.presentToast("Datos guardados!!!","success");
+          this.presentToast("Datos guardados.","success");
           
           this.router.navigate(['/tabs']);
         }
