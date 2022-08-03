@@ -60,6 +60,12 @@ export class SanaPage implements OnInit {
     }else{
       var user = JSON.parse(localStorage.getItem('ingresado'));
       //let user = localStorage.getItem('ingresado');
+      if(this.prescripcionBd==undefined || this.prescripcionBd==""){
+        this.prescripcionBd = "No aplica";
+      }
+      if(this.observacionBd==undefined || this.observacionBd==""){
+        this.observacionBd = "No aplica";
+      }
       let array = {
         "id_usuario": user.data['id_usuario'],
         "id_parcela":this.verSeleccion,
